@@ -48,9 +48,9 @@
       padding:8px;
     }
 
-    /* for charts that need extra top space so intro overlays don't cover content */
-    .vis.with-intro { padding-top:96px; } /* general room for overlay */
-    .vis.with-intro-sub { padding-top:140px; } /* more room for intro + subtext */
+    /* adjusted spacing for intro overlays */
+    .vis.with-intro { padding-top:96px; } /* room for overlays generally */
+    .vis.with-intro-sub { padding-top:110px; } /* REDUCED from 140 -> 110 to lower top gap */
     .vis.large{ min-height:620px; height:620px; }
 
     /* overlay intro text (blue) — positioned relative to block */
@@ -70,7 +70,8 @@
       pointer-events:none;
       max-width:46%;
     }
-    .chart-intro.small { font-size:0.98rem; padding:8px 10px; max-width:46%; }
+    /* make the small intro even smaller to reduce occupied height */
+    .chart-intro.small { font-size:0.88rem; padding:6px 8px; max-width:46%; }
     .chart-intro.lower { top:58px; }
 
     .intro-sub {
@@ -84,13 +85,11 @@
 
     .body-text { margin-top:12px; color:#123c4f; font-size:var(--readable); line-height:1.55; }
 
-    /* glossary blue box (restored) */
     .glossary{ margin-top:12px; padding:12px; border-radius:8px; background: linear-gradient(180deg,#f7fbfc,#eef7fa); border-left:4px solid var(--accent-2); color:#0b4150; font-size:0.98rem; line-height:1.45;}
     .glossary strong{display:block; margin-bottom:6px;}
 
     footer.meta{margin-top:18px; color:var(--muted); font-size:0.88rem; text-align:center;}
 
-    /* center embedded SVGs to avoid right-shift */
     .vis > * { width:100%; max-width:100%; display:block; margin:0 auto; box-sizing:border-box; }
 
     @media (max-width:900px){
@@ -120,7 +119,7 @@
         </div>
       </section>
 
-      <!-- 2 Anomaly: keep blue intro and restore glossary box -->
+      <!-- 2 Anomaly -->
       <section id="block-anomaly" class="block">
         <div class="chart-intro lower" aria-hidden="false">Malaysia’s climate is becoming increasingly strange!</div>
 
@@ -138,7 +137,7 @@
         </div>
       </section>
 
-      <!-- 3 GHG: intro (blue) + intro-sub text (below) + larger padding for chart -->
+      <!-- 3 GHG (intro smaller + reduced top padding so less blank space) -->
       <section id="block-ghg" class="block">
         <div class="chart-intro small" aria-hidden="false">Who is the culprit behind the temperature rise?</div>
         <div class="intro-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
@@ -150,7 +149,7 @@
         </div>
       </section>
 
-      <!-- 4 Sea level: title bolded -->
+      <!-- 4 Sea level -->
       <section id="block-searise" class="block">
         <div class="section-title"><strong>Sea Level — Seasonal Heatmap</strong></div>
         <div class="section-sub">In fact, greenhouse gases not only cause rising temperatures but also lead to sea level rise, threatening our homes!</div>
@@ -162,7 +161,7 @@
         </div>
       </section>
 
-      <!-- 5 Forest: blue intro repositioned to avoid covering chart -->
+      <!-- 5 Forest -->
       <section id="block-forest" class="block">
         <div class="chart-intro small" style="top:12px; left:22px;">What can we do for Malaysia!</div>
 
@@ -220,6 +219,7 @@
   </script>
 </body>
 </html>
+
 
 
 
