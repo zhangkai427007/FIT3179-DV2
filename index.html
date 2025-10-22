@@ -19,15 +19,15 @@
       --card: #ffffff;
       --muted: #58606b;
       --accent: #184f63;
-      --maxWidth: 1100px;
+      --maxWidth: 1120px;
       --gap: 20px;
     }
     html,body{height:100%; margin:0; font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#0b2540;}
     .wrap{max-width:var(--maxWidth); margin:28px auto; padding:18px;}
     header{margin-bottom:18px;}
     h1{font-family:"Merriweather", serif; margin:0; font-size:1.6rem; color:var(--accent);}
-    .lead{margin-top:12px; color:var(--muted); font-size:1rem; display:flex; align-items:center;}
-    .lead .question { flex: 0 0 auto; font-weight:600; margin-right:24px; }
+    .lead{margin-top:12px; color:var(--muted); font-size:1rem; display:flex; align-items:center; column-gap:16px;}
+    .lead .question { flex: 0 0 auto; font-weight:600; margin-right:12px; }
     .lead .guide { color:var(--muted); font-style:italic; }
     main{display:grid; grid-template-columns: 1fr; gap:var(--gap); margin-top:18px;}
     .block{background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 24px rgba(16,24,40,0.06);}
@@ -35,8 +35,8 @@
     .section-sub{color:var(--muted); margin:0 0 12px 0;}
     .vis { width:100%; min-height:420px; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.95)); border-radius:6px; border:1px solid #eef3f3; }
     .figcaption{margin-top:10px; color:var(--muted); font-size:0.95rem; line-height:1.4;}
-    .analysis{margin-top:12px;}
-    textarea.analysis-box{width:100%; min-height:110px; border:1px solid #e6eef0; padding:10px; border-radius:6px; font-size:0.95rem; resize:vertical}
+    .big-question { font-size:1.15rem; font-weight:700; color:#0b2540; margin-top:14px; margin-bottom:10px; }
+    .analysis-note { font-size:1rem; color:#123c4f; font-weight:700; margin-top:6px; margin-bottom:8px; }
     .muted-note{color:var(--muted); font-size:0.9rem; margin-top:8px;}
     footer.meta{margin-top:18px; color:var(--muted); font-size:0.85rem;}
     @media (max-width:900px){
@@ -56,7 +56,7 @@
     </header>
 
     <main>
-      <!-- Temperature time series -->
+      <!-- 1 Temperature -->
       <section id="block-temperature" class="block" aria-labelledby="temp-title">
         <h2 id="temp-title" class="section-title">Temperature — Time Series</h2>
         <div class="section-sub">(Source: repository temperature.json)</div>
@@ -66,14 +66,9 @@
         <p class="figcaption">
           Our senses don’t lie — in fact, Malaysia’s temperature is really increasing continually. Malaysia average surface temperature has risen from 25.76°C in 1901 to 27.06°C in 2024, a significant increase of 2.7°C. This warming trend extends to both the average maximum and minimum temperatures, which have also risen noticeably, signaling a broader climate shift.
         </p>
-
-        <div class="analysis">
-          <label for="analysis-temp"><strong>Analysis / Notes (Temperature)</strong></label>
-          <textarea id="analysis-temp" class="analysis-box" placeholder="Write your observations about the temperature trend here..."></textarea>
-        </div>
       </section>
 
-      <!-- Anomaly chart -->
+      <!-- 2 Anomaly -->
       <section id="block-anomaly" class="block" aria-labelledby="anom-title">
         <h2 id="anom-title" class="section-title">Temperature Anomaly</h2>
         <div class="section-sub">(Baseline: Malaysia 1991–2020 average surface temperature)</div>
@@ -83,28 +78,42 @@
         <p class="figcaption">
           While Malaysia experienced temperature anomaly before 2013, the temperature anomalies have been continuously increasing since 2013, using Malaysia’s 1991-2020 average surface temperature as a baseline.
         </p>
-
-        <div class="analysis">
-          <label for="analysis-anom"><strong>Discussion / Questions (Anomaly)</strong></label>
-          <textarea id="analysis-anom" class="analysis-box" placeholder="Write your discussion and questions regarding anomalies here..."></textarea>
-        </div>
       </section>
 
-      <!-- GHG emissions intro and chart -->
+      <!-- 3 Intro to GHG -->
       <section id="block-ghg" class="block" aria-labelledby="ghg-title">
         <h2 id="ghg-title" class="section-title">Greenhouse Gas Emissions</h2>
         <div class="section-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
 
         <div id="vis-ghg" class="vis">Loading GHG emissions chart…</div>
 
-        <p class="figcaption">
-          (Use this chart to link emissions and temperature trends. Data source: your repository.)
-        </p>
+        <p class="figcaption">(Use this chart to link emissions and temperature trends. Data source: your repository.)</p>
+      </section>
 
-        <div class="analysis">
-          <label for="analysis-ghg"><strong>Policy / Analysis (GHG)</strong></label>
-          <textarea id="analysis-ghg" class="analysis-box" placeholder="Write policy implications, observations or suggested actions here..."></textarea>
-        </div>
+      <!-- 4 Sea level -->
+      <section id="block-searise" class="block" aria-labelledby="searise-title">
+        <h2 id="searise-title" class="section-title">Sea Level — Seasonal Heatmap</h2>
+        <div class="section-sub">(Monthly sea level data across years)</div>
+
+        <div id="vis-searise" class="vis">Loading sea level heatmap…</div>
+
+        <p class="figcaption">
+          Based on the heat map above, we can clearly find that as the years increase along the x-axis, the color of squares representing each month deepens, and even periodic tidal patterns become less distinct, indicating a continuous rise in sea levels around Malaysia.
+        </p>
+      </section>
+
+      <!-- 5 Big question and forest map -->
+      <section id="block-forest" class="block" aria-labelledby="forest-title">
+        <div class="big-question">Facing the worsening greenhouse effect, what can Malaysia do?</div>
+
+        <h2 id="forest-title" class="section-title">Permanent Forest Reserves — State-level Map</h2>
+        <div class="section-sub">(Map of Permanent Forest Reserves by state)</div>
+
+        <div id="vis-forest" class="vis">Loading forest reserve map…</div>
+
+        <p class="figcaption">
+          Although state governments in Malaysia are establishing Permanent Forest Reserves (PFR), the country’s total forest cover continues to decline. This is largely due to a complex network of forest protection, managed by multiple agencies and laws. The federal agency JPSM lacks sufficient political accountability, leaving the creation of nature reserves, wildlife sanctuaries, and national parks mostly reliant on state legislation. Based on Forestry Department data, this governance gap worsens Malaysia’s climate challenge!
+        </p>
       </section>
 
       <footer class="meta">
@@ -113,11 +122,13 @@
     </main>
   </div>
 
-  <!-- Embed charts (use the new raw links you provided) -->
+  <!-- Embed charts (use your provided raw links) -->
   <script>
     const tempJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/temperature.json";
     const anomJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/anomaly.json";
     const ghgJSON   = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghgemissions.json";
+    const seariseJSON = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/searise.json";
+    const forestJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/forestmap.json";
 
     async function embedChart(target, url, opts = {}) {
       const el = document.querySelector(target);
@@ -131,14 +142,17 @@
       }
     }
 
-    // embed
+    // embed charts in sequence (order matters for user perception)
     embedChart('#vis-temperature', tempJSON);
     embedChart('#vis-anomaly', anomJSON);
     embedChart('#vis-ghg', ghgJSON);
+    embedChart('#vis-searise', seariseJSON);
+    embedChart('#vis-forest', forestJSON);
 
-    // updated date
+    // fill updated date
     document.getElementById('updated-date').textContent = new Date().toLocaleDateString();
   </script>
 </body>
 </html>
+
 
