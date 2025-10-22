@@ -32,6 +32,9 @@
     main{display:grid; grid-template-columns: 1fr; gap:var(--gap); margin-top:18px;}
 
     .block{background:var(--card); border-radius:10px; padding:14px; box-shadow:0 8px 20px rgba(16,24,40,0.06); position:relative; overflow:visible;}
+    .section-title{font-weight:700; margin:0 0 8px 0; color:#0b2540; font-size:1.06rem;}
+    .section-sub{color:var(--muted); margin:0 0 12px 0; font-size:0.95rem;}
+
     .vis{
       width:100%;
       min-height:420px;
@@ -44,7 +47,10 @@
       box-sizing:border-box;
       padding:8px;
     }
-    .vis.with-intro { padding-top:96px; } /* give space for overlay */
+
+    /* for charts that need extra top space so intro overlays don't cover content */
+    .vis.with-intro { padding-top:96px; } /* general room for overlay */
+    .vis.with-intro-sub { padding-top:140px; } /* more room for intro + subtext */
     .vis.large{ min-height:620px; height:620px; }
 
     /* overlay intro text (blue) — positioned relative to block */
@@ -65,12 +71,10 @@
       max-width:46%;
     }
     .chart-intro.small { font-size:0.98rem; padding:8px 10px; max-width:46%; }
-
-    /* second chart lower placement (so it doesn't block title - but we removed title for chart2) */
     .chart-intro.lower { top:58px; }
 
     .intro-sub {
-      margin-top:8px;
+      margin-top:10px;
       margin-left:22px;
       color:#123c4f;
       font-size:0.98rem;
@@ -79,6 +83,10 @@
     }
 
     .body-text { margin-top:12px; color:#123c4f; font-size:var(--readable); line-height:1.55; }
+
+    /* glossary blue box (restored) */
+    .glossary{ margin-top:12px; padding:12px; border-radius:8px; background: linear-gradient(180deg,#f7fbfc,#eef7fa); border-left:4px solid var(--accent-2); color:#0b4150; font-size:0.98rem; line-height:1.45;}
+    .glossary strong{display:block; margin-bottom:6px;}
 
     footer.meta{margin-top:18px; color:var(--muted); font-size:0.88rem; text-align:center;}
 
@@ -89,6 +97,7 @@
       .vis{min-height:300px}
       .chart-intro, .chart-intro.lower { position:relative; left:auto; top:auto; margin-bottom:8px; max-width:100%; pointer-events:none; }
       .vis.with-intro { padding-top:18px; }
+      .vis.with-intro-sub { padding-top:48px; }
       .intro-sub { margin-left:0; max-width:100%; }
     }
   </style>
@@ -100,7 +109,7 @@
     </header>
 
     <main>
-      <!-- 1 Temperature: unchanged overlay -->
+      <!-- 1 Temperature -->
       <section id="block-temperature" class="block">
         <div class="chart-intro" aria-hidden="false">Have you noticed that Malaysia is getting hotter?</div>
 
@@ -111,7 +120,7 @@
         </div>
       </section>
 
-      <!-- 2 Anomaly: only blue intro (lower) -->
+      <!-- 2 Anomaly: keep blue intro and restore glossary box -->
       <section id="block-anomaly" class="block">
         <div class="chart-intro lower" aria-hidden="false">Malaysia’s climate is becoming increasingly strange!</div>
 
@@ -122,27 +131,28 @@
         </div>
 
         <div class="glossary" role="note" aria-label="Glossary">
-          <strong>Temperature Anomalies:</strong> The difference between a measured temperature and a reference or baseline temperature. Using data from 1991 to 2020 serves as reference, which is the most commonly used climate reference internationally.
-          <br><strong>Greenhouse Effect:</strong> A natural process where gases in Earth's atmosphere, like carbon dioxide and methane, trap the sun's heat, warming the planet's surface.
-          <br><strong>Greenhouse gases:</strong> Gases in Earth's atmosphere that trap heat, causing the greenhouse effect, which warms the planet.
+          <strong>Key terms</strong>
+          <p><strong>Temperature Anomalies:</strong> The difference between a measured temperature and a reference or baseline temperature. Using data from 1991 to 2020 serves as reference, which is the most commonly used climate reference internationally.</p>
+          <p><strong>Greenhouse Effect:</strong> A natural process where gases in Earth's atmosphere, like carbon dioxide and methane, trap the sun's heat, warming the planet's surface.</p>
+          <p><strong>Greenhouse gases:</strong> Gases in Earth's atmosphere that trap heat, causing the greenhouse effect, which warms the planet.</p>
         </div>
       </section>
 
-      <!-- 3 GHG: blue intro replaced title; intro-sub below it; then chart -->
+      <!-- 3 GHG: intro (blue) + intro-sub text (below) + larger padding for chart -->
       <section id="block-ghg" class="block">
         <div class="chart-intro small" aria-hidden="false">Who is the culprit behind the temperature rise?</div>
         <div class="intro-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
 
-        <div id="vis-ghg" class="vis with-intro" role="img" aria-label="Greenhouse gas emissions chart">Loading GHG emissions chart…</div>
+        <div id="vis-ghg" class="vis with-intro-sub" role="img" aria-label="Greenhouse gas emissions chart">Loading GHG emissions chart…</div>
 
         <div class="body-text">
           From 1990 to 2022, Malaysia's total greenhouse gas emissions have steadily increased, with electricity and heat production and the transport sector accounting for the largest shares. This ongoing rise in emissions will further intensify the greenhouse effect.
         </div>
       </section>
 
-      <!-- 4 Sea level (larger) -->
+      <!-- 4 Sea level: title bolded -->
       <section id="block-searise" class="block">
-        <div class="section-title">Sea Level — Seasonal Heatmap</div>
+        <div class="section-title"><strong>Sea Level — Seasonal Heatmap</strong></div>
         <div class="section-sub">In fact, greenhouse gases not only cause rising temperatures but also lead to sea level rise, threatening our homes!</div>
 
         <div id="vis-searise" class="vis large" role="img" aria-label="Sea level heatmap">Loading sea level heatmap…</div>
@@ -152,9 +162,9 @@
         </div>
       </section>
 
-      <!-- 5 Forest: blue intro kept, repositioned so it doesn't block; no extra explanatory sentence -->
+      <!-- 5 Forest: blue intro repositioned to avoid covering chart -->
       <section id="block-forest" class="block">
-        <div class="chart-intro small" style="top:16px; left:22px;">What can we do for Malaysia!</div>
+        <div class="chart-intro small" style="top:12px; left:22px;">What can we do for Malaysia!</div>
 
         <div id="vis-forest" class="vis with-intro" role="img" aria-label="Forest reserve map">Loading forest reserve map…</div>
 
@@ -162,7 +172,7 @@
         <div id="vis-filter" class="vis" style="margin-top:16px; min-height:420px;">Loading filter chart…</div>
       </section>
 
-      <!-- After chart6 (filter), two concluding paragraphs as requested -->
+      <!-- concluding paragraphs after filter chart -->
       <section class="block">
         <div class="body-text" style="font-size:1.02rem; font-weight:700; margin-bottom:12px;">
           Through exploring the chart above, we see that as forest cover decreases yearly, Malaysia’s rainfall continues to rise. Facing the severe greenhouse effect challenge of the 21st century, our actions should focus on planting more trees, protecting the environment, and reducing carbon emissions!
@@ -210,6 +220,7 @@
   </script>
 </body>
 </html>
+
 
 
 
