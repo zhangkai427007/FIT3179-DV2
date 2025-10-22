@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {"url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/temperature_data.csv"},
+  "width": 900,
+  "height": 500,
+  "padding": 20,
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "quantitative",
+      "title": "Year"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "opacity": 0.3,
+        "color": "lightblue"
+      },
+      "encoding": {
+        "y": {
+          "field": "Average Minimum Surface Air Temperature (°C)",
+          "type": "quantitative",
+          "title": "Temperature (°C)",
+          "scale": {"zero": false,
+          "domain": [15, 35]}
+        },
+        "y2": {
+          "field": "Average Maximum Surface Air Temperature (°C)"
+        },
+        "tooltip": [
+          {"field": "Year", "type": "quantitative", "title": "Year"},
+          {"field": "Average Minimum Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Minimum", "format": ".2f"},
+          {"field": "Average Maximum Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Maximum", "format": ".2f"},
+          {"field": "Average Mean Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Mean", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "red",
+        "size": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "Average Mean Surface Air Temperature (°C)",
+          "type": "quantitative",
+          "scale": {"zero": false,
+          "domain": [15, 35]}
+        },
+        "tooltip": [
+          {"field": "Year", "type": "quantitative", "title": "Year"},
+          {"field": "Average Minimum Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Minimum", "format": ".2f"},
+          {"field": "Average Maximum Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Maximum", "format": ".2f"},
+          {"field": "Average Mean Surface Air Temperature (°C)", "type": "quantitative", "title": "Average Mean", "format": ".2f"}
+        ]
+      }
+    }
+  ]
+}
