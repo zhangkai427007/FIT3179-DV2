@@ -4,6 +4,9 @@
   "data": {
     "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghg-emissions-by-sector.csv" 
   },
+  "width": 900,
+  "height": 500,
+  "padding": 20,
   "title": {
     "text": "GHG emissions by sector for Malaysia",
     "fontSize": 14
