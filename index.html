@@ -79,6 +79,8 @@
 
     .body-text { margin-top:12px; color:#123c4f; font-size:var(--readable); line-height:1.55; }
 
+    .glossary{ margin-top:12px; padding:12px; border-radius:8px; background: linear-gradient(180deg,#f7fbfc,#eef7fa); border-left:4px solid var(--accent-2); color:#0b4150; font-size:0.98rem; line-height:1.45;}
+
     footer.meta{margin-top:18px; color:var(--muted); font-size:0.88rem; text-align:center;}
 
     /* center embedded SVGs to avoid right-shift */
@@ -99,7 +101,7 @@
 
     <main>
       <!-- 1 Temperature: intro overlay (blue). Use vis.with-intro so overlay doesn't cover chart -->
-      <section id="block-temperature" class="block" aria-labelledby="temp-title">
+      <section id="block-temperature" class="block">
         <div class="chart-intro" aria-hidden="false">Have you noticed that Malaysia is getting hotter?</div>
 
         <div id="vis-temperature" class="vis with-intro" role="img" aria-label="Temperature time series chart">Loading temperature chart…</div>
@@ -109,27 +111,29 @@
         </div>
       </section>
 
-      <!-- 2 Anomaly: smaller intro, positioned lower so title not covered; this block has title above chart so intro shifted down -->
+      <!-- 2 Anomaly: only keep blue intro (no title/subtitle) -->
       <section id="block-anomaly" class="block">
-        <div class="section-title">Malaysia’s climate is becoming increasingly strange</div>
-        <div class="section-sub">(Baseline: Malaysia 1991–2020 average surface temperature)</div>
-
         <div class="chart-intro lower" aria-hidden="false">Malaysia’s climate is becoming increasingly strange!</div>
+
         <div id="vis-anomaly" class="vis with-intro" role="img" aria-label="Temperature anomaly chart">Loading anomaly chart…</div>
 
         <div class="body-text">
           While Malaysia experienced temperature anomaly before 2013, the temperature anomalies have been continuously increasing since 2013, using Malaysia’s 1991-2020 average surface temperature as a baseline.
         </div>
+
+        <div class="glossary" role="note" aria-label="Glossary">
+          <strong>Temperature Anomalies:</strong> The difference between a measured temperature and a reference or baseline temperature. Using data from 1991 to 2020 serves as reference, which is the most commonly used climate reference internationally.
+          <br><strong>Greenhouse Effect:</strong> A natural process where gases in Earth's atmosphere, like carbon dioxide and methane, trap the sun's heat, warming the planet's surface.
+          <br><strong>Greenhouse gases:</strong> Gases in Earth's atmosphere that trap heat, causing the greenhouse effect, which warms the planet.
+        </div>
       </section>
 
-      <!-- 3 GHG: intro and updated body text -->
+      <!-- 3 GHG: remove previous non-colored intro; keep title & body -->
       <section id="block-ghg" class="block">
-        <div class="chart-intro small" style="left:22px; top:18px;">Who is the culprit behind the temperature rise?</div>
-
         <div class="section-title">Greenhouse Gas Emissions</div>
         <div class="section-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
 
-        <div id="vis-ghg" class="vis with-intro" role="img" aria-label="Greenhouse gas emissions chart">Loading GHG emissions chart…</div>
+        <div id="vis-ghg" class="vis" role="img" aria-label="Greenhouse gas emissions chart">Loading GHG emissions chart…</div>
 
         <div class="body-text">
           From 1990 to 2022, Malaysia's total greenhouse gas emissions have steadily increased, with electricity and heat production and the transport sector accounting for the largest shares. This ongoing rise in emissions will further intensify the greenhouse effect.
@@ -148,23 +152,14 @@
         </div>
       </section>
 
-      <!-- 5 Forest: intro and subtext; remove extra subtitle -->
+      <!-- 5 Forest: only keep blue intro; remove title and explanatory sentence -->
       <section id="block-forest" class="block">
         <div class="chart-intro small" style="left:22px; top:18px;">What can we do for Malaysia!</div>
 
-        <div class="section-title">Permanent Forest Reserves — State-level Map</div>
-
-        <div class="body-text" style="margin-top:8px; font-weight:600; color:var(--accent);">
-          Forests can effectively absorb greenhouse gases like carbon dioxide, helping humans combat the greenhouse effect.
-        </div>
-
         <div id="vis-forest" class="vis" role="img" aria-label="Forest reserve map">Loading forest reserve map…</div>
 
-        <div class="body-text" style="margin-top:12px;">
-          Although state governments in Malaysia are establishing Permanent Forest Reserves (PFR), the country’s total forest cover continues to decline. This is largely due to a complex network of forest protection, managed by multiple agencies and laws. The federal agency JPSM lacks sufficient political accountability, leaving the creation of nature reserves, wildlife sanctuaries, and national parks mostly reliant on state legislation. Based on Forestry Department data, this governance gap worsens Malaysia’s climate challenge!
-        </div>
-
-        <!-- 6 Extra chart (filter.json) inserted after forest narrative -->
+        <!-- forest textual narrative removed per your request -->
+        <!-- insert filter chart below -->
         <div id="vis-filter" class="vis" style="margin-top:16px; min-height:420px;">Loading filter chart…</div>
       </section>
 
@@ -212,5 +207,6 @@
   </script>
 </body>
 </html>
+
 
 
