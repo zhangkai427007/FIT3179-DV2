@@ -3,7 +3,7 @@
   "data": {"url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/temperature_data.csv"},
   "width": 900,
   "height": 500,
-  "padding": 10,
+  "padding": 20,
   "encoding": {
     "x": {
       "field": "Year",
