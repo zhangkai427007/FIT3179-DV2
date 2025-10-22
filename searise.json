@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/total-sea-level-change.csv" 
+  },
+  "title": {
+    "text": "Monthly Total Sea Level Change (1993-2024)",
+    "fontSize": 14
+  },
+  "config": {
+    "view": {
+      "strokeWidth": 0,
+      "step": 15
+    },
+    "axis": {
+      "domain": false
+    }
+  },
+  "transform": [
+    {
+      "fold": [
+        "Year 1993",
+        "Year 1994",
+        "Year 1995",
+        "Year 1996",
+        "Year 1997",
+        "Year 1998",
+        "Year 1999",
+        "Year 2000",
+        "Year 2001",
+        "Year 2002",
+        "Year 2003",
+        "Year 2004",
+        "Year 2005",
+        "Year 2006",
+        "Year 2007",
+        "Year 2008",
+        "Year 2009",
+        "Year 2010",
+        "Year 2011",
+        "Year 2012",
+        "Year 2013",
+        "Year 2014",
+        "Year 2015",
+        "Year 2016",
+        "Year 2017",
+        "Year 2018",
+        "Year 2019",
+        "Year 2020",
+        "Year 2021",
+        "Year 2022",
+        "Year 2023",
+        "Year 2024"
+      ],
+      "as": ["Year_Column_Name", "Sea_Level_Change_mm"]
+    },
+    {
+      "calculate": "replace(datum.Year_Column_Name, 'Year ', '')",
+      "as": "Year"
+    },
+    {
+      "filter": "datum.Sea_Level_Change_mm != null && !isNaN(datum.Sea_Level_Change_mm)"
+    }
+  ],
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 45, 
+        "labelFlush": true, 
+        "labelPadding": 4
+      }
+    },
+    "y": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], 
+      "title": "Month"
+    },
+    "color": {
+      "field": "Sea_Level_Change_mm",
+      "type": "quantitative",
+      "title": "Change (mm)",
+      "scale": {
+        "range": "heatmap" 
+      },
+      "legend": {
+        "title": "Change (mm)"
+      }
+    },
+    "tooltip": [
+      {"field": "Year", "type": "ordinal"},
+      {"field": "Month", "type": "nominal"},
+      {"field": "Sea_Level_Change_mm", "type": "quantitative", "title": "Change (mm)", "format": ".2f"}
+    ]
+  }
+}
