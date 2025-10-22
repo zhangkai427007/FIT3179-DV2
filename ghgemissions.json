@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "description": "Stacked bar chart showing primary (positive) GHG emissions by sector over time for Malaysia, excluding the carbon sink (land-use change and forestry).",
   "data": {
     "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghg-emissions-by-sector.csv" 
