@@ -8,176 +8,172 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Vega (v6) + Vega-Lite (v5) + vega-embed -->
+  <!-- Vega libs -->
   <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
 
   <style>
     :root{
-      --bg: #f6fbf6;
-      --card: #ffffff;
-      --muted: #55606a;
-      --accent: #123c4f;
-      --accent-2: #1f7aa0;
-      --maxWidth: 1120px;
-      --gap: 22px;
-      --readable: 1.05rem;
+      --bg:#f6fbf6;
+      --card:#ffffff;
+      --muted:#55606a;
+      --accent:#123c4f;
+      --accent-2:#1f7aa0;
+      --maxWidth:1120px;
+      --gap:22px;
+      --readable:1.05rem;
     }
-    html,body{height:100%; margin:0; font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#0b2540;}
-    .wrap{max-width:var(--maxWidth); margin:32px auto; padding:20px;}
-    /* Title */
-    header{margin-bottom:20px; text-align:center;}
-    h1{
-      font-family:"Merriweather", serif;
-      margin:0; 
-      font-size:2.1rem; /* larger title */
-      font-weight:800; /* bolder */
-      color:var(--accent);
-      letter-spacing:0.4px;
-      line-height:1.05;
-    }
-    /* Intro (left-to-right phrase) */
-    .lead-wrap{display:flex; justify-content:center; margin-top:16px;}
-    .lead{
-      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));
-      padding:12px 18px;
+    html,body{height:100%; margin:0; padding:0; font-family:"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#0b2540;}
+    .wrap{max-width:var(--maxWidth); margin:28px auto; padding:20px; box-sizing:border-box;}
+    header{text-align:center;margin-bottom:18px;}
+    h1{font-family:"Merriweather", serif; margin:0; font-size:2.1rem; font-weight:800; color:var(--accent); letter-spacing:0.4px;}
+
+    /* lead removed from top; will be overlay inside chart */
+
+    main{display:grid; grid-template-columns: 1fr; gap:var(--gap); margin-top:18px;}
+
+    .block{background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 24px rgba(16,24,40,0.06); position:relative; overflow:visible;}
+    .section-title{font-weight:700; margin:0 0 6px 0; color:#0b2540; font-size:1.06rem;}
+    .section-sub{color:var(--muted); margin:0 0 12px 0; font-size:0.95rem;}
+
+    /* chart container - ensure centering and consistent padding */
+    .vis{
+      width:100%;
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.97));
       border-radius:8px;
-      box-shadow:0 6px 18px rgba(16,24,40,0.04);
-      display:flex; align-items:center; gap:18px;
-    }
-    .lead .question {
-      font-size:1.05rem;
-      font-weight:700;
-      color:var(--accent-2);
-    }
-    .lead .guide {
-      font-size:0.95rem;
-      color:var(--muted);
-      font-style:italic;
+      border:1px solid #eef3f3;
+      box-sizing:border-box;
+      padding:12px;
     }
 
-    /* Main layout */
-    main{display:grid; grid-template-columns: 1fr; gap:var(--gap); margin-top:18px;}
-    .block{background:var(--card); border-radius:10px; padding:18px; box-shadow:0 8px 24px rgba(16,24,40,0.06);}
-    .section-title{font-weight:700; margin:0 0 6px 0; color:#0b2540; font-size:1.1rem;}
-    .section-sub{color:var(--muted); margin:0 0 12px 0; font-size:0.95rem;}
-    .vis { width:100%; min-height:420px; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.97)); border-radius:8px; border:1px solid #eef3f3; }
-    /* Larger readable body text under charts */
-    .body-text { margin-top:12px; color:#123c4f; font-size:var(--readable); line-height:1.55; }
-    /* Glossary box (special) */
-    .glossary {
-      margin-top:12px;
-      padding:12px;
+    /* larger class for sea level */
+    .vis.large{ min-height:600px; height:600px; }
+
+    /* overlay intro text (left top inside chart) */
+    .chart-intro {
+      position:absolute;
+      z-index:10;
+      left:28px;
+      top:28px;
+      background: rgba(255,255,255,0.92);
+      padding:10px 12px;
       border-radius:8px;
-      background: linear-gradient(180deg,#f7fbfc,#eef7fa);
-      border-left:4px solid var(--accent-2);
-      color:#0b4150;
-      font-size:0.98rem;
-      line-height:1.45;
+      box-shadow: 0 6px 14px rgba(16,24,40,0.06);
+      color:var(--accent-2);
+      font-weight:700;
+      font-size:1rem;
+      max-width:46%;
+      line-height:1.2;
     }
-    .glossary h4 { margin:0 0 8px 0; font-size:1rem; color:var(--accent); }
-    .glossary p { margin:6px 0; color:#123c4f; }
+
+    /* second chart smaller intro style */
+    .chart-intro.small {
+      font-size:0.98rem;
+      font-weight:700;
+      color:var(--accent-2);
+      left:28px;
+      top:28px;
+      max-width:48%;
+    }
+
+    .body-text { margin-top:12px; color:#123c4f; font-size:var(--readable); line-height:1.55; }
+
+    .glossary{ margin-top:12px; padding:12px; border-radius:8px; background: linear-gradient(180deg,#f7fbfc,#eef7fa); border-left:4px solid var(--accent-2); color:#0b4150; font-size:0.98rem; line-height:1.45;}
+
     footer.meta{margin-top:20px; color:var(--muted); font-size:0.88rem; text-align:center;}
+
+    /* ensure embedded SVGs are block centered to avoid perceived right-shift */
+    .vis > * { max-width:100%; width:100%; display:block; margin:0 auto; box-sizing:border-box; }
+
     @media (max-width:900px){
       .vis{min-height:300px}
-      .lead{flex-direction:column; align-items:flex-start;}
+      .chart-intro { position:relative; left:auto; top:auto; margin-bottom:8px; max-width:100%;}
+      .chart-intro.small { position:relative; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- Title centered and bigger -->
     <header>
       <h1>Malaysia: The Climate Challenge of Greenhouse Effect</h1>
-      <div class="lead-wrap" aria-hidden="false">
-        <div class="lead">
-          <div class="question">Have you noticed that Malaysia is getting hotter?</div>
-          <div class="guide">(Scroll down to explore observed trends and causes)</div>
-        </div>
-      </div>
     </header>
 
     <main>
-      <!-- 1 Temperature -->
-      <section id="block-temperature" class="block" aria-labelledby="temp-title">
-        <div id="temp-title" class="section-title">Malaysia Observed of Average Surface Air Temperature</div>
-        <div class="section-sub">(Observed long-term series)</div>
+      <!-- 1 Temperature: no title; intro overlay at top-left -->
+      <section id="block-temperature" class="block">
+        <!-- overlay intro placed at top-left of this block -->
+        <div class="chart-intro" aria-hidden="false">Have you noticed that Malaysia is getting hotter?</div>
 
-        <div id="vis-temperature" class="vis">Loading temperature chart…</div>
+        <div id="vis-temperature" class="vis" role="img" aria-label="Temperature time series chart">Loading temperature chart…</div>
 
         <div class="body-text">
           Our senses don’t lie — in fact, Malaysia’s temperature is really increasing continually. Malaysia average surface temperature has risen from 25.76°C in 1901 to 27.06°C in 2024, a significant increase of 2.7°C. This warming trend extends to both the average maximum and minimum temperatures, which have also risen noticeably, signaling a broader climate shift.
         </div>
       </section>
 
-      <!-- 2 Anomaly -->
-      <section id="block-anomaly" class="block" aria-labelledby="anom-title">
-        <div id="anom-title" class="section-title">Malaysia’s climate is becoming increasingly strange</div>
-        <div class="section-sub">(Baseline: Malaysia 1991–2020 average surface temperature)</div>
+      <!-- 2 Anomaly: intro overlay (small) -->
+      <section id="block-anomaly" class="block">
+        <div class="chart-intro small">Malaysia’s climate is becoming increasingly strange!</div>
 
-        <div id="vis-anomaly" class="vis">Loading anomaly chart…</div>
+        <div id="vis-anomaly" class="vis" role="img" aria-label="Temperature anomaly chart">Loading anomaly chart…</div>
 
         <div class="body-text">
           While Malaysia experienced temperature anomaly before 2013, the temperature anomalies have been continuously increasing since 2013, using Malaysia’s 1991-2020 average surface temperature as a baseline.
         </div>
 
-        <!-- Glossary box with slightly different color -->
-        <div class="glossary" role="note" aria-label="Glossary: temperature anomalies and greenhouse terms">
-          <h4>Key terms</h4>
-          <p><strong>Temperature Anomalies:</strong> The difference between a measured temperature and a reference or baseline temperature. Using data from 1991 to 2020 serves as reference, which is the most commonly used climate reference internationally.</p>
-          <p><strong>Greenhouse Effect:</strong> A natural process where gases in Earth's atmosphere, like carbon dioxide and methane, trap the sun's heat, warming the planet's surface.</p>
-          <p><strong>Greenhouse gases:</strong> Gases in Earth's atmosphere that trap heat, causing the greenhouse effect, which warms the planet.</p>
+        <div class="glossary" role="note" aria-label="Glossary">
+          <strong>Temperature Anomalies:</strong> The difference between a measured temperature and a reference or baseline temperature. Using data from 1991 to 2020 serves as reference, which is the most commonly used climate reference internationally.
+          <br><strong>Greenhouse Effect:</strong> A natural process where gases in Earth's atmosphere, like carbon dioxide and methane, trap the sun's heat, warming the planet's surface.
+          <br><strong>Greenhouse gases:</strong> Gases in Earth's atmosphere that trap heat, causing the greenhouse effect, which warms the planet.
         </div>
       </section>
 
       <!-- 3 GHG -->
-      <section id="block-ghg" class="block" aria-labelledby="ghg-title">
-        <div id="ghg-title" class="section-title">Greenhouse Gas Emissions</div>
+      <section id="block-ghg" class="block">
+        <div class="section-title">Greenhouse Gas Emissions</div>
         <div class="section-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
 
-        <div id="vis-ghg" class="vis">Loading GHG emissions chart…</div>
+        <div id="vis-ghg" class="vis" role="img" aria-label="Greenhouse gas emissions chart">Loading GHG emissions chart…</div>
 
         <div class="body-text">
-          <!-- keep concise -->
           Emissions from fossil fuels, land-use change and agriculture increase atmospheric greenhouse gas concentrations, disrupting Earth’s energy balance and driving long-term warming.
         </div>
       </section>
 
-      <!-- 4 Sea level -->
-      <section id="block-searise" class="block" aria-labelledby="searise-title">
-        <div id="searise-title" class="section-title">Sea Level — Seasonal Heatmap</div>
+      <!-- 4 Sea level (larger) -->
+      <section id="block-searise" class="block">
+        <div class="section-title">Sea Level — Seasonal Heatmap</div>
         <div class="section-sub">In fact, greenhouse gases not only cause rising temperatures but also lead to sea level rise, threatening our homes!</div>
 
-        <div id="vis-searise" class="vis">Loading sea level heatmap…</div>
+        <div id="vis-searise" class="vis large" role="img" aria-label="Sea level heatmap">Loading sea level heatmap…</div>
 
         <div class="body-text">
           Based on the heat map above, we can clearly find that as the years increase along the x-axis, the color of squares representing each month deepens, and even periodic tidal patterns become less distinct, indicating a continuous rise in sea levels around Malaysia.
         </div>
       </section>
 
-      <!-- 5 Forest map -->
-      <section id="block-forest" class="block" aria-labelledby="forest-title">
-        <div class="big-question" style="font-size:1.06rem; font-weight:700; color:var(--accent); margin-bottom:10px;">Facing the worsening greenhouse effect, what can Malaysia do?</div>
+      <!-- 5 Forest map: remove extra subtitle -->
+      <section id="block-forest" class="block">
+        <div class="section-title">Permanent Forest Reserves — State-level Map</div>
 
-        <div id="forest-title" class="section-title">Permanent Forest Reserves — State-level Map</div>
-        <div class="section-sub">(Overview of state-level forest reserves and protection status)</div>
-
-        <div id="vis-forest" class="vis">Loading forest reserve map…</div>
+        <div id="vis-forest" class="vis" role="img" aria-label="Forest reserve map">Loading forest reserve map…</div>
 
         <div class="body-text">
           Although state governments in Malaysia are establishing Permanent Forest Reserves (PFR), the country’s total forest cover continues to decline. This is largely due to a complex network of forest protection, managed by multiple agencies and laws. The federal agency JPSM lacks sufficient political accountability, leaving the creation of nature reserves, wildlife sanctuaries, and national parks mostly reliant on state legislation. Based on Forestry Department data, this governance gap worsens Malaysia’s climate challenge!
         </div>
       </section>
 
-      <footer class="meta">
-        Built with Vega-Lite & vega-embed. Last updated: <span id="updated-date"></span>
-      </footer>
+      <footer class="meta">Built with Vega-Lite & vega-embed. Last updated: <span id="updated-date"></span></footer>
     </main>
   </div>
 
-  <!-- Embed charts (raw links) -->
   <script>
+    // raw links (your provided refs/heads main links)
     const tempJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/temperature.json";
     const anomJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/anomaly.json";
     const ghgJSON   = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghgemissions.json";
@@ -192,7 +188,7 @@
         console.log("Embedded:", url);
       } catch (err) {
         console.error("Embed error:", url, err);
-        el.innerText = "Unable to load chart — check console for details.";
+        el.innerText = "Unable to load chart — check console for details or CORS issues.";
       }
     }
 
