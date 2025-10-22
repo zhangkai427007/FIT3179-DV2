@@ -1,79 +1,141 @@
-<!-- BEGIN: Two charts + analysis boxes -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  body{font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6fbf6; color:#0f172a; margin:18px;}
-  .container{max-width:1100px;margin:0 auto;}
-  .header{margin-bottom:8px;}
-  .title{font-size:1.6rem;font-weight:700;color:#184f63;}
-  .subtitle{font-size:1rem;color:#374151;margin-top:6px;font-style:italic;}
-  .row{display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin-top:18px;}
-  .card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);min-height:360px; display:flex;flex-direction:column;}
-  .card .head{font-weight:700;color:#0b2540;margin-bottom:6px;}
-  .vis{flex:1; display:flex; align-items:center; justify-content:center; min-height:260px;}
-  .analysis{margin-top:10px;}
-  textarea.analysis-box{width:100%;min-height:100px;border:1px solid #e6eef0;padding:8px;border-radius:6px;font-size:0.95rem;resize:vertical}
-  .note{font-size:0.85rem;color:#6b7280;margin-top:8px;}
-  @media (max-width:900px){ .row{grid-template-columns: 1fr; } }
-</style>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Malaysia: The Climate Challenge of Greenhouse Effect</title>
 
-<div class="container">
-  <div class="header">
-    <div class="title">马来西亚变暖：温室效应与环境挑战</div>
-    <div class="subtitle">你有没有感觉到马来西亚变得越来越热？</div>
-    <div class="note">（下面是你的两张图 — 请在每张图下方填写对应的分析与对话框）</div>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+
+  <style>
+    :root{
+      --bg:#f6fbf6;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#184f63;
+      --maxWidth:1100px;
+    }
+    html,body{height:100%; margin:0; font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#0b2540;}
+    .wrap{max-width:var(--maxWidth); margin:28px auto; padding:18px;}
+    header{margin-bottom:18px;}
+    header h1{font-family:"Merriweather", serif; margin:0; font-size:1.6rem; color:var(--accent);}
+    header .lede{margin-top:10px; color:var(--muted); font-style:italic;}
+    main{display:grid; grid-template-columns: 1fr; gap:20px;}
+    .block{background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 24px rgba(16,24,40,0.06);}
+    .section-title{font-weight:700; margin:0 0 8px 0; color:#0b2540;}
+    .section-sub{color:var(--muted); margin:0 0 12px 0;}
+    .vis { width:100%; min-height:380px; display:flex; align-items:center; justify-content:center; }
+    .figcaption{margin-top:10px; color:var(--muted); font-size:0.95rem; line-height:1.4;}
+    .analysis{margin-top:12px;}
+    textarea.analysis-box{width:100%; min-height:110px; border:1px solid #e6eef0; padding:10px; border-radius:6px; font-size:0.95rem; resize:vertical}
+    .muted-note{color:var(--muted); font-size:0.9rem; margin-top:8px;}
+    footer.meta{margin-top:18px; color:var(--muted); font-size:0.85rem;}
+    @media (max-width:900px){ .vis{min-height:300px} .wrap{padding:10px} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Malaysia: The Climate Challenge of Greenhouse Effect</h1>
+      <div class="lede">Have you noticed that Malaysia is getting hotter?</div>
+    </header>
+
+    <main>
+      <!-- Temperature chart block -->
+      <section class="block" aria-labelledby="temp-title">
+        <div id="temp-title" class="section-title">Temperature — Time Series</div>
+        <div class="section-sub">(Data source: your repository)</div>
+
+        <div id="vis-temperature" class="vis">Loading temperature chart…</div>
+
+        <div class="figcaption">
+          Our senses don’t lie — in fact, Malaysia’s temperature is really increasing continually. Malaysia average surface temperature has risen from 25.76°C in 1901 to 27.06°C in 2024, a significant increase of 2.7°C.
+          <span style="display:block;color:#b33;margin-top:6px;font-weight:600;">
+            Note: 25.76 → 27.06 equals +1.30°C (please confirm whether you intended 2.7°C or 1.3°C).
+          </span>
+        </div>
+
+        <div class="analysis">
+          <label for="analysis-temp"><strong>Analysis / Notes (Temperature)</strong></label>
+          <textarea id="analysis-temp" class="analysis-box" placeholder="写下你对温度图的观察、重要时间点、可能原因或引用的文献..."></textarea>
+        </div>
+      </section>
+
+      <!-- Anomaly chart block -->
+      <section class="block" aria-labelledby="anom-title">
+        <div id="anom-title" class="section-title">Temperature Anomaly</div>
+        <div class="section-sub">(Baseline: Malaysia 1991–2020 average surface temperature)</div>
+
+        <div id="vis-anomaly" class="vis">Loading anomaly chart…</div>
+
+        <div class="figcaption">
+          While Malaysia experienced temperature anomaly before 2013, the temperature anomalies have been continuously increasing since 2013, using Malaysia’s 1991–2020 average surface temperature as a baseline.
+        </div>
+
+        <div class="analysis">
+          <label for="analysis-anom"><strong>Discussion / Questions (Anomaly)</strong></label>
+          <textarea id="analysis-anom" class="analysis-box" placeholder="写下对异常变化的解释，或提出你想进一步探讨的问题..."></textarea>
+        </div>
+      </section>
+
+      <!-- Intro to GHG chart -->
+      <section class="block" aria-labelledby="ghg-title">
+        <div id="ghg-title" class="section-title">Why is it warming?</div>
+        <div class="section-sub">The main reason for the rising temperatures is that greenhouse gases from human activities have worsened the 'greenhouse effect' on Earth.</div>
+
+        <div id="vis-ghg" class="vis">Loading GHG emissions chart…</div>
+
+        <div class="figcaption">
+          (Next: GHG emissions chart — use this to link emissions and temperature trends. Data source: your repository.)
+        </div>
+
+        <div class="analysis">
+          <label for="analysis-ghg"><strong>Analysis / Policy implications</strong></label>
+          <textarea id="analysis-ghg" class="analysis-box" placeholder="写下排放与温度关系的观察、政策建议或研究参考..."></textarea>
+        </div>
+      </section>
+
+      <footer class="meta">
+        Data sources: Zhang Kai (your repo). Author: [Your name]. Built with Vega-Lite and vega-embed. Last updated: <!-- dynamic date inserted by JS -->
+        <span id="updated-date"></span>
+      </footer>
+    </main>
   </div>
 
-  <div class="row">
-    <!-- Chart 1: temperature -->
-    <figure class="card" id="card-temp">
-      <div class="head">温度时间序列（Temperature）</div>
-      <div id="vis-temp" class="vis">Loading temperature chart…</div>
-      <figcaption class="note">数据来源：你在仓库的 temperature.json</figcaption>
+  <!-- Embed charts (raw links) -->
+  <script>
+    // raw.githubusercontent links for your JSON charts
+    const tempJSON = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/temperature.json";
+    const anomJSON = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/anomaly.json";
+    const ghgJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/ghgemissions.json";
 
-      <div class="analysis">
-        <label for="analysis-temp"><strong>分析（Temperature）</strong></label>
-        <textarea id="analysis-temp" class="analysis-box" placeholder="在此输入你对温度时序图的观察与解释..."></textarea>
-      </div>
-    </figure>
+    // helper to embed with graceful fallback
+    async function embedChart(targetSelector, url) {
+      const el = document.querySelector(targetSelector);
+      if (!el) return;
+      try {
+        await vegaEmbed(targetSelector, url, {renderer:'svg', actions: true});
+        console.log("Embedded:", url);
+      } catch (err) {
+        console.error("Embed error:", url, err);
+        el.innerText = "无法加载图表，请检查 console 中的错误或确保 JSON 链接可访问 (raw.githubusercontent.com)。";
+      }
+    }
 
-    <!-- Chart 2: anomaly -->
-    <figure class="card" id="card-anom">
-      <div class="head">温度异常（Anomaly）</div>
-      <div id="vis-anom" class="vis">Loading anomaly chart…</div>
-      <figcaption class="note">数据来源：你在仓库的 anomaly.json</figcaption>
+    // embed three charts
+    embedChart('#vis-temperature', tempJSON);
+    embedChart('#vis-anomaly', anomJSON);
+    embedChart('#vis-ghg', ghgJSON);
 
-      <div class="analysis">
-        <label for="analysis-anom"><strong>对话框 / 说明（Anomaly）</strong></label>
-        <textarea id="analysis-anom" class="analysis-box" placeholder="在此写下你对异常图的讨论、问题或结论..."></textarea>
-      </div>
-    </figure>
-  </div>
-</div>
+    // fill updated date
+    document.getElementById('updated-date').innerText = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>
 
-<!-- Vega libs -->
-<script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
-
-<script>
-  // Chart URLs (raw)
-  const tempURL  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/temperature.json";
-  const anomURL  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/anomaly.json";
-
-  // Embed temperature chart
-  vegaEmbed('#vis-temp', tempURL, {renderer: 'svg', actions: true})
-    .then(res => console.log("Temperature chart loaded"))
-    .catch(err => {
-      console.error("Temperature chart error:", err);
-      document.getElementById('vis-temp').innerText = '无法加载温度图，请检查 URL 或控制台错误。';
-    });
-
-  // Embed anomaly chart
-  vegaEmbed('#vis-anom', anomURL, {renderer: 'svg', actions: true})
-    .then(res => console.log("Anomaly chart loaded"))
-    .catch(err => {
-      console.error("Anomaly chart error:", err);
-      document.getElementById('vis-anom').innerText = '无法加载异常图，请检查 URL 或控制台错误。';
-    });
-</script>
-<!-- END: Two charts + analysis boxes -->
