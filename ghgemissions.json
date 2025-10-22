@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Stacked bar chart showing primary (positive) GHG emissions by sector over time for Malaysia, excluding the carbon sink (land-use change and forestry).",
+  "data": {
+    "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghg-emissions-by-sector.csv" 
+  },
+  "title": {
+    "text": "GHG emissions by sector for Malaysia",
+    "fontSize": 14
+  },
+  "transform": [
+    {
+      "fold": [
+        "Greenhouse gas emissions from agriculture",
+        "Greenhouse gas emissions from waste",
+        "Greenhouse gas emissions from buildings",
+        "Greenhouse gas emissions from industry",
+        "Greenhouse gas emissions from manufacturing and construction",
+        "Greenhouse gas emissions from transport",
+        "Greenhouse gas emissions from electricity and heat",
+        "Fugitive emissions of greenhouse gases from energy production",
+        "Greenhouse gas emissions from other fuel combustion",
+        "Greenhouse gas emissions from bunker fuels"
+      ],
+      "as": ["Emission Sector", "Emission Value"] 
+    },
+    {
+      "calculate": "split(datum['Emission Sector'], ' from ')[1] || datum['Emission Sector']",
+      "as": "Sector Name"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {"labelAngle": 45} 
+    },
+    "y": {
+      "field": "Emission Value",
+      "type": "quantitative",
+      "title": "GHG Emissions (t CO2eq)",
+      "scale": {"domainMin": 0}, 
+      "axis": {"format": "s"} 
+    },
+    "color": {
+      "field": "Sector Name",
+      "type": "nominal",
+      "title": "Emission Sector"
+    },
+    "tooltip": [
+      {"field": "Year", "type": "ordinal"},
+      {"field": "Sector Name", "type": "nominal"},
+      {
+        "field": "Emission Value",
+        "type": "quantitative",
+        "title": "Emissions",
+        "format": "," 
+      }
+    ]
+  }
+}
