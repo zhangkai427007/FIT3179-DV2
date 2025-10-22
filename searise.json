@@ -4,7 +4,7 @@
     "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/total-sea-level-change.csv" 
   },
   "width": 900,
-  "height": 300,
+  "height": 500,
   "padding": 10,
   "title": {
     "text": "Monthly Total Sea Level Change (1993-2024)",
