@@ -1,0 +1,96 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Comparison of Forest Area and Precipitation Over Time",
+    "fontSize": 16
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/interaction.csv"
+  },
+  "width": 600,  
+  "height": 400, 
+  "params": [
+    {
+      "name": "data_selection",
+      "value": "Both",
+      "bind": {
+        "input": "select",
+        "options": ["Both", "Forest Area", "Precipitation"],
+        "name": "Let us explore: "
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "quantitative",
+      "title": "Year",
+      "axis": {"format": "d", "grid": false}
+    }
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "filter": "data_selection == 'Both' || data_selection == 'Forest Area'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "y": {
+          "field": "Forest area",
+          "type": "quantitative",
+          "axis": {
+            "title": "Forest Area (km²)",
+            "titleColor": "#1f77b4" 
+          },
+          "scale": {"domain": [18000000, 21000000]} 
+        },
+        "color": {"value": "#1f77b4"},
+        "tooltip": [
+          {"field": "Year", "title": "Year"},
+          {"field": "Forest area", "title": "Forest Area (km²)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "data_selection == 'Both' || data_selection == 'Precipitation'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "y": {
+          "field": "Precipitation (mm)",
+          "type": "quantitative",
+          "axis": {
+            "title": "Precipitation (mm)",
+            "titleColor": "#e7ba52", 
+            "orient": "right" 
+          },
+          "scale": {"domain": [2500, 3500]} 
+        },
+        "color": {"value": "#e7ba52"},
+        "tooltip": [
+          {"field": "Year", "title": "Year"},
+          {"field": "Precipitation (mm)", "title": "Precipitation (mm)", "format": ",.2f"}
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {"y": "independent"} 
+  },
+  "config": {
+    "view": {"stroke": "transparent"}
+  }
+}
