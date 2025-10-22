@@ -1,0 +1,71 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": "Malaysia's Area of Permanent Forest Reserves by State in 2021",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/geoBoundaries-MYS-ADM1_simplified.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "MYSADM1gbOpen"
+    }
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "transform": [
+    {
+      "lookup": "properties.shapeName",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/final-forest.csv"
+        },
+        "transform": [
+          {
+            "calculate": "year(datum.date)",
+            "as": "year"
+          }
+        ],
+        "key": "state",
+        "fields": ["area", "date"]
+      }
+    }
+  ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "color": {
+      "condition": {
+        "test": "datum.area != null && isValid(datum.area)",
+        "field": "area",
+        "type": "quantitative",
+        "scale": {
+          "scheme": "greens"
+        },
+        "title": "Area of PRF (km²)"
+      },
+      "value": "#e5e5e5"
+    },
+    "tooltip": [
+      {
+        "field": "properties.shapeName",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "area",
+        "type": "quantitative",
+        "title": "Area (km²)",
+        "format": ",.0f"
+      },
+      {
+        "field": "date",
+        "type": "nominal",
+        "title": "Year"
+      }
+    ]
+  }
+}
