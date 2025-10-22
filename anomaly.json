@@ -3,6 +3,9 @@
   "data": {
     "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/annual-temperature-anomalies.csv"
   },
+  "width": 900,
+  "height": 500,
+  "padding": 20,
   "title" :{
     "text": "Annual temperature anomalies for Malaysia",
     "fontSize": 14
