@@ -113,14 +113,12 @@
     </main>
   </div>
 
-  <!-- Embed charts (raw links) -->
+  <!-- Embed charts (use the new raw links you provided) -->
   <script>
-    // Convert your blob links to raw links:
-    const tempJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/temperature.json";
-    const anomJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/anomaly.json";
-    const ghgJSON   = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/main/ghgemissions.json";
+    const tempJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/temperature.json";
+    const anomJSON  = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/anomaly.json";
+    const ghgJSON   = "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/ghgemissions.json";
 
-    // Helper: embed with graceful message on failure
     async function embedChart(target, url, opts = {}) {
       const el = document.querySelector(target);
       if (!el) return;
@@ -133,12 +131,12 @@
       }
     }
 
-    // Embed in order
+    // embed
     embedChart('#vis-temperature', tempJSON);
     embedChart('#vis-anomaly', anomJSON);
     embedChart('#vis-ghg', ghgJSON);
 
-    // fill last updated date
+    // updated date
     document.getElementById('updated-date').textContent = new Date().toLocaleDateString();
   </script>
 </body>
