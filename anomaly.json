@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/zhangkai427007/FIT3179-DV2/refs/heads/main/annual-temperature-anomalies.csv"
+  },
+  "title" :{
+    "text": "Annual temperature anomalies for Malaysia",
+    "fontSize": 14
+  },
+  "transform": [
+    {
+      "filter": "datum.Year >= 1990"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Year", 
+      "type": "nominal",
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelAngle": 45,
+        "labelPadding": 4
+      }
+    },
+    "y": {
+      "field": "Temperature anomaly", "type": "quantitative",
+      "axis": {
+        "gridColor": {
+          "condition": {"test": "datum.value === 0", "value": "black"},
+          "value": "#ddd"
+        }
+      },
+       "title": "Temperature anomaly (℃)"
+    },
+    "tooltip": [
+    {"field": "Year", "type": "nominal"},
+    {"field": "Temperature anomaly", "type": "quantitative", "title": "Anomaly (°C)", "format": ".2f"}
+  ]
+  }
+}
